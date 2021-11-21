@@ -1,7 +1,7 @@
 #include <string>
 #include <vector>
-
-#include "string.h"
+#include <cstring>
+#include <dstr/string.h>
 
 // String splitting utility function inspired by Python's str.split()
 // However, there is a major difference:
@@ -10,8 +10,8 @@
 [[nodiscard]] std::vector<std::string> dstr::split(const std::string& input, const char* delimiter) {
 	// Note that std::getline does not work if the delimiter consists of more than a single character
 	std::vector<std::string> output;
-	if (input == "") return output;
-	if (delimiter == "") {
+	if (input.size() == 0) return output;
+	if (strcmp(delimiter, "") == 0) {
 		output.emplace_back(input);
 		return output;
 	}
@@ -29,14 +29,9 @@
 	return output;
 }
 
-[[nodiscard]] std::vector<std::string> split(const std::string& input, const std::string& delimiter) {
-	return split(input, delimiter.c_str());
-}
-
-
 // Strip is also included here since sometimes bad things happen if it's not used due to rogue whitespace
 [[nodiscard]] std::string dstr::strip(const std::string& input, const std::string& to_strip ) {
-	if (input == "") return input;
+	if (input.size() == 0) return input;
 	
 	size_t first_pos = 0;
 	for (const auto& c : input) {
