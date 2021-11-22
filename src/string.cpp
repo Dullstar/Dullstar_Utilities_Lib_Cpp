@@ -16,10 +16,10 @@
 		return output;
 	}
 	bool escape = false;
-	int previous = 0;
+	size_t previous = 0;
 	while (!escape) {
-		int current = input.find(delimiter, previous);
-		if (current == -1) {
+		auto current = input.find(delimiter, previous);
+		if (current == std::string::npos) {
 			current = input.size();
 			escape = true;
 		}
